@@ -15,7 +15,7 @@ const t = {
       empty: "Koszyk jest pusty",
       total: "Razem",
       order: "Złóż zamówienie",
-      info: "Przyjmujemy butle turystyczne do nabicia, lecz tylko mające legalizację. Nie przyjmujemy butli czerwonych oraz z niestandardowymi zaworami. Czas oczekiwania wynosi od 2 do 5 dni (Butle są odbierane i przywożone w poniedziałki, środy i piątki w różnych godzinach, najpóźniej około 15).",
+      info: "Butle 11Kg i 10KG z Propanem są dostępne do wymiany od ręki po za butlami bez kołnierza, które najczęściej są na zamówienie i czas oczekiwania wynosi od 2,3 dni do 5. Ceny butli poniżej 10KG (Turystycznych lub do Grilla) są za napełnienie pojemnika i czas oczekiwania wynosi od 2-5 dni. Wymagany jest własny pojemnik mający ważną legalizację. W przyszłości pojawią się także pojemniki turystyczne na zamówienie lub wymianę za pojemnik maksymalnie rok starszy, niż sprzedawany przez Stację. Przyjmujemy butle turystyczne do nabicia, lecz tylko mające legalizację. Nie przyjmujemy butli czerwonych oraz z niestandardowymi zaworami. Czas oczekiwania wynosi od 2 do 5 dni (Butle są odbierane i przywożone w poniedziałki, środy i piątki w różnych godzinach, najpóźniej około 15).",
       programTitle:
         "Dołącz do programu i zbieraj podpisy przy każdej wymianie butli lub tankowaniu LPG.",
       programDesc:
@@ -46,7 +46,7 @@ const t = {
       empty: "Cart is empty",
       total: "Total",
       order: "Place order",
-      info: "We accept tourist cylinders for refilling only if they are certified. We do not accept red cylinders or with non-standard valves. Waiting time: 2–5 days (Cylinders are collected and returned on Mondays, Wednesdays and Fridays, latest ~3 PM).",
+      info: "11kg and 10kg propane cylinders are available for immediate exchange, except for flangeless cylinders, which are usually made to order and have a waiting time of 2-3 days to 5 days. Prices for cylinders under 10kg (tourist or barbecue) are per refill and have a waiting time of 2-5 days. A valid, certified container is required. In the future, tourist containers will also be available for order or exchange for a container no older than the one sold by the station. We accept tourist cylinders for refilling only if they are certified. We do not accept red cylinders or with non-standard valves. Waiting time: 2–5 days (Cylinders are collected and returned on Mondays, Wednesdays and Fridays, latest ~3 PM).",
       programTitle:
         "Join the loyalty program and collect stamps for each refill or LPG fueling.",
       programDesc:
