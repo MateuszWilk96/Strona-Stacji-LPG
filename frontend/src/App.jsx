@@ -80,14 +80,14 @@ const t = {
     { id: 2, name: "Gaz w butli 11KG Propan-Butan", price: 75, desc: "Cena za wymianę lub napełnienie. Wymagana własna butla.", image: "/butla-11kg.png" },
     { id: 3, name: "Gaz w butli 10KG Propan-Butan", price: 85, desc: "Cena za wymianę lub napełnienie. Wymagana własna butla.", image: "/butla-11kg.png" },
     { id: 4, name: "Gaz w butli 8KG Propan-Butan", price: 62, desc: "Cena za wymianę lub napełnienie. Wymagana własna butla.", image: "/butla-8kg.jpg" },
-    { id: 5, name: "Gaz w butli 5KG", price: 53, desc: "Cena za wymianę lub napełnienie. Wymagana własna butla.", image: "/butla-5kg.jpg"  },
+    { id: 5, name: "Gaz w butli 5KG", price: 53, desc: "Cena za wymianę lub napełnienie. Wymagana własna butla.", image: "/Butla-5kg.jpg"  },
     { id: 6, name: "Gaz w butli 3KG", price: 45, desc: "Cena za wymianę lub napełnienie. Wymagana własna butla.", image: "/butla-3kg.jpg"  },
     { id: 7, name: "Gaz w butli 2KG", price: 40, desc: "Cena za wymianę lub napełnienie. Wymagana własna butla.", image: "/butla-2kg.jpg" },
     { id: 8, name: "Gaz w butli 1KG", price: 27, desc: "Cena za wymianę lub napełnienie. Wymagana własna butla.", image: "/butla-1kg.jpg"  },
     { id: 9, name: "Pojemnik 11KG", price: 260, desc: "Cena za pustą butlę (bez gazu).", image: "/butla-11kg.png" },
     { id: 10, name: "Sodastream Wymiana", price: 15,desc: "Cena za wymianę butli Click On lub Twist On", image: "/SodaStream.jpg" },
     { id: 11, name: "Płyn do spryskiwaczy letni", price: 11, desc: "Opakowanie 5L. Zapach Zielonego Jabłka.", image: "/Płyn-lato.jpg"  },
-    { id: 12, name: "Płyn do spryskiwaczy zimowy", price: 22, desc: "Opakowanie 5L. Odporny na mróz do -20 stopni. Zapach Cytrusowy", image: "/Płyn-zima.jpg"  },
+    { id: 12, name: "Płyn do spryskiwaczy zimowy", price: 22, desc: "Opakowanie 5L. Odporny na mróz do -20 stopni. Zapach Cytrusowy", image: "/Płyn-Zima.jpg"  },
   ];
 
   const addToCart = (product) => {
@@ -184,7 +184,7 @@ const t = {
       {/* Stały baner */}
 <header className="relative w-full h-64 md:h-80 lg:h-96">
   <img
-    src="/header.webp" 
+    src="/Header.webp" 
     alt="Baner Stacji LPG"
     className="w-full h-full object-cover"
   />
