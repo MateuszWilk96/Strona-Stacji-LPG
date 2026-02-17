@@ -84,10 +84,10 @@ const t = {
     { id: 6, name: "Gaz w butli 3KG", price: 45, desc: "Cena za wymianę lub napełnienie. Wymagana własna butla.", image: "/butla-3kg.jpg"  },
     { id: 7, name: "Gaz w butli 2KG", price: 40, desc: "Cena za wymianę lub napełnienie. Wymagana własna butla.", image: "/butla-2kg.jpg" },
     { id: 8, name: "Gaz w butli 1KG", price: 27, desc: "Cena za wymianę lub napełnienie. Wymagana własna butla.", image: "/butla-1kg.jpg"  },
-    { id: 9, name: "Pojemnik 11KG", price: 260, desc: "Cena za pustą butlę (bez gazu).", image: "/butla-11kg.png" },
+    { id: 9, name: "Pojemnik 11KG", price: 250, desc: "Cena za pustą butlę (bez gazu).", image: "/butla-11kg.png" },
     { id: 10, name: "Sodastream Wymiana", price: 15,desc: "Cena za wymianę butli Click On lub Twist On", image: "/SodaStream.jpg" },
-    { id: 11, name: "Płyn do spryskiwaczy letni", price: 11, desc: "Opakowanie 5L. Zapach Zielonego Jabłka.", image: "/Płyn-lato.jpg"  },
-    { id: 12, name: "Płyn do spryskiwaczy zimowy", price: 22, desc: "Opakowanie 5L. Odporny na mróz do -20 stopni. Zapach Cytrusowy", image: "/Płyn-Zima.jpg"  },
+    { id: 11, name: "Płyn do spryskiwaczy letni", price: 11, desc: "Opakowanie 5L. Zapach Zielonego Jabłka. Tymczasowo niedostępny", image: "/Płyn-lato.jpg"  },
+    { id: 12, name: "Płyn do spryskiwaczy zimowy", price: 25, desc: "Opakowanie 5L. Odporny na mróz do -20 stopni. Zapach Cytrusowy", image: "/Płyn-Zima.jpg"  },
   ];
 
   const addToCart = (product) => {
