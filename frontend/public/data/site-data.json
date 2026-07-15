@@ -39,7 +39,6 @@
   "pakersi": {
     "enabled": true,
     "label": "Pakersi — strona punktu",
-    "message": "Punkt Pakersi będzie obsługiwany przez zewnętrzny podmiot.",
     "websiteUrl": ""
   },
   "integrations": {
