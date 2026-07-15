@@ -1,0 +1,92 @@
+{
+  "products": [
+    {
+      "id": 2,
+      "name": "Gaz w butli 11KG Propan-Butan",
+      "price": 85,
+      "desc": "Cena za wymianę lub napełnienie. Wymagana własna butla.",
+      "image": "/butla-11kg.png",
+      "active": true
+    },
+    {
+      "id": 3,
+      "name": "Gaz w butli 10KG Propan-Butan",
+      "price": 95,
+      "desc": "Cena za wymianę lub napełnienie. Wymagana własna butla.",
+      "image": "/butla-11kg.png",
+      "active": true
+    },
+    {
+      "id": 4,
+      "name": "Gaz w butli 8KG Propan-Butan",
+      "price": 62,
+      "desc": "Cena za wymianę lub napełnienie. Wymagana własna butla.",
+      "image": "/butla-8kg.jpg",
+      "active": true
+    },
+    {
+      "id": 5,
+      "name": "Gaz w butli 5KG",
+      "price": 53,
+      "desc": "Cena za wymianę lub napełnienie. Wymagana własna butla.",
+      "image": "/Butla-5kg.jpg",
+      "active": true
+    },
+    {
+      "id": 6,
+      "name": "Gaz w butli 3KG",
+      "price": 45,
+      "desc": "Cena za wymianę lub napełnienie. Wymagana własna butla.",
+      "image": "/butla-3kg.jpg",
+      "active": true
+    },
+    {
+      "id": 7,
+      "name": "Gaz w butli 2KG",
+      "price": 40,
+      "desc": "Cena za wymianę lub napełnienie. Wymagana własna butla.",
+      "image": "/butla-2kg.jpg",
+      "active": true
+    },
+    {
+      "id": 8,
+      "name": "Gaz w butli 1KG",
+      "price": 27,
+      "desc": "Cena za wymianę lub napełnienie. Wymagana własna butla.",
+      "image": "/butla-1kg.jpg",
+      "active": true
+    },
+    {
+      "id": 9,
+      "name": "Pojemnik 11KG",
+      "price": 225,
+      "desc": "Cena za pustą butlę (bez gazu).",
+      "image": "/butla-11kg.png",
+      "active": true
+    },
+    {
+      "id": 10,
+      "name": "Sodastream – wymiana",
+      "price": 15,
+      "desc": "Wymiana butli Click-On lub Twist-On.",
+      "image": "/SodaStream.jpg",
+      "active": true
+    },
+    {
+      "id": 11,
+      "name": "Płyn do spryskiwaczy letni",
+      "price": 11,
+      "desc": "Opakowanie 5L. Zapach zielonego jabłka. Tymczasowo niedostępny.",
+      "image": "/Płyn-lato.jpg",
+      "active": false
+    },
+    {
+      "id": 12,
+      "name": "Płyn do spryskiwaczy zimowy",
+      "price": 25,
+      "desc": "Opakowanie 5L. Odporny na mróz do -20°C. Zapach cytrusowy.",
+      "image": "/plyn-zimowy.jpg",
+      "active": true
+    }
+  ]
+}

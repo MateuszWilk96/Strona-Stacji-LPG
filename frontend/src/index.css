@@ -2,4 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #root { height: 100%; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; background: #eff6ff; }
+a { text-decoration: none; }
+.container { max-width: 1200px; }
+.form-input { @apply w-full rounded-lg border border-slate-300 bg-white p-3 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100; }
+.insurance-hero { background: radial-gradient(circle at top right, #047857 0, #064e3b 48%, #022c22 100%); }
+.page-enter { animation: pageFlip .65s cubic-bezier(.22,.8,.25,1) both; transform-origin: left center; backface-visibility: hidden; }
+@keyframes pageFlip {
+  from { opacity: .1; transform: perspective(1400px) rotateY(-18deg) translateX(35px); filter: brightness(.8); }
+  to { opacity: 1; transform: perspective(1400px) rotateY(0) translateX(0); filter: brightness(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .page-enter { animation: none; }
+}

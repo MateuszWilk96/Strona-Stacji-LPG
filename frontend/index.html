@@ -3,10 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Twoja Stacja LPG i Twoja Strefa Ubezpieczeń w Jastrzębiu-Zdroju." />
+    <meta property="og:title" content="Twoja Stacja LPG | Twoja Strefa Ubezpieczeń" />
+    <meta property="og:type" content="website" />
     <title>Twoja Stacja LPG</title>
   </head>
   <body>
     <div id="root"></div>
+    <form name="zamowienie-lpg" data-netlify="true" hidden>
+      <input name="name"><input name="phone"><input name="email"><input name="address"><input name="customerType"><input name="companyName"><input name="nip"><input name="payment"><input name="notes"><input name="products"><input name="total"><input name="consent"><input name="date">
+    </form>
+    <form name="wycena-ubezpieczenia" data-netlify="true" hidden>
+      <input name="name"><input name="phone"><input name="email"><input name="brand"><input name="model"><input name="year"><input name="engine"><input name="postalCode"><input name="driverAge"><input name="claims"><input name="registration"><input name="pesel"><input name="notes"><input name="estimates"><input name="consent"><input name="date">
+    </form>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

@@ -1,0 +1,140 @@
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+publish_mode: editorial_workflow
+media_folder: public/uploads
+public_folder: /uploads
+
+collections:
+  - name: ustawienia
+    label: Ustawienia strony
+    files:
+      - name: site
+        label: Dane firmy, ceny i integracje
+        file: public/data/site-data.json
+        format: json
+        fields:
+          - label: Marki
+            name: brands
+            widget: object
+            fields:
+              - { label: Stacja, name: station, widget: string }
+              - { label: Ubezpieczenia, name: insurance, widget: string }
+          - label: Adres
+            name: address
+            widget: object
+            fields:
+              - { label: Ulica, name: street, widget: string }
+              - { label: Kod pocztowy, name: postalCode, widget: string }
+              - { label: Miasto, name: city, widget: string }
+              - { label: Pełny adres, name: full, widget: string }
+          - label: Telefony
+            name: phones
+            widget: object
+            fields:
+              - { label: Centrala, name: central, widget: string }
+              - { label: Stacja, name: station, widget: string }
+              - { label: Agent 1, name: agent1, widget: string }
+              - { label: Agent 2, name: agent2, widget: string }
+          - label: E-maile
+            name: emails
+            widget: object
+            fields:
+              - { label: Stacja, name: station, widget: string }
+              - { label: Ubezpieczenia, name: insurance, widget: string }
+              - { label: Pakersi, name: pakersi, widget: string }
+          - label: Social media
+            name: social
+            widget: object
+            fields:
+              - { label: Facebook, name: facebook, widget: string }
+          - label: LPG
+            name: lpg
+            widget: object
+            fields:
+              - { label: Cena LPG, name: price, widget: number, value_type: float, step: 0.01, min: 0 }
+              - { label: Data aktualizacji ceny, name: priceUpdatedAt, widget: datetime, date_format: YYYY-MM-DD, time_format: false, format: YYYY-MM-DD }
+          - label: Przyczepka
+            name: trailer
+            widget: object
+            fields:
+              - { label: Do 3 godzin, name: upTo3h, widget: number, min: 0 }
+              - { label: Doba, name: day, widget: number, min: 0 }
+          - label: Dostawa
+            name: delivery
+            widget: object
+            fields:
+              - { label: Aktywna, name: enabled, widget: boolean }
+              - { label: Cena, name: price, widget: number, min: 0 }
+              - { label: Telefon, name: phone, widget: string }
+          - label: Przycisk Pakersi
+            name: pakersi
+            widget: object
+            fields:
+              - { label: Pokaż sekcję, name: enabled, widget: boolean }
+              - { label: Tekst przycisku, name: label, widget: string }
+              - { label: Informacja, name: message, widget: text }
+              - { label: Adres strony Pakersi, name: websiteUrl, widget: string, required: false, hint: Pozostaw puste, dopóki nie otrzymasz adresu. }
+          - label: Integracje
+            name: integrations
+            widget: object
+            fields:
+              - { label: Google Apps Script URL, name: googleAppsScriptUrl, widget: string, required: false }
+          - label: Prywatność
+            name: privacy
+            widget: object
+            fields:
+              - { label: Administrator danych, name: administrator, widget: string }
+              - { label: E-mail kontaktowy, name: contactEmail, widget: string }
+
+      - name: products
+        label: Produkty, ceny i zdjęcia
+        file: public/data/products.json
+        format: json
+        fields:
+          - label: Produkty
+            name: products
+            widget: list
+            summary: '{{fields.name}} — {{fields.price}} zł'
+            fields:
+              - { label: ID, name: id, widget: number, value_type: int }
+              - { label: Nazwa, name: name, widget: string }
+              - { label: Cena, name: price, widget: number, value_type: float, step: 0.01, min: 0 }
+              - { label: Opis, name: desc, widget: text }
+              - { label: Obraz, name: image, widget: image, choose_url: true }
+              - { label: Aktywny, name: active, widget: boolean }
+
+      - name: insurance_rates
+        label: Model kalkulatora orientacyjnego
+        file: public/data/insurance-rates.json
+        format: json
+        fields:
+          - { label: Informacja prawna, name: notice, widget: text }
+          - { label: Składka bazowa, name: basePremium, widget: number, value_type: float, min: 0 }
+          - label: Współczynniki
+            name: factors
+            widget: object
+            fields:
+              - { label: Młody kierowca, name: youngDriver, widget: number, value_type: float, step: 0.01 }
+              - { label: Region, name: regional, widget: number, value_type: float, step: 0.01 }
+              - { label: Każda szkoda, name: claim, widget: number, value_type: float, step: 0.01 }
+              - { label: Duży silnik, name: largeEngine, widget: number, value_type: float, step: 0.01 }
+              - { label: Starszy pojazd, name: olderVehicle, widget: number, value_type: float, step: 0.01 }
+          - label: Progi
+            name: thresholds
+            widget: object
+            fields:
+              - { label: Wiek młodego kierowcy poniżej, name: youngDriverAge, widget: number }
+              - { label: Duży silnik od cm3, name: largeEngineCc, widget: number }
+              - { label: Starszy pojazd przed rokiem, name: olderVehicleBeforeYear, widget: number }
+              - { label: Prefiks kodu pocztowego regionu, name: regionalPostalPrefix, widget: string }
+          - label: Towarzystwa i mnożniki orientacyjne
+            name: companies
+            widget: list
+            summary: '{{fields.name}} — {{fields.multiplier}}'
+            fields:
+              - { label: Nazwa, name: name, widget: string }
+              - { label: Mnożnik orientacyjny, name: multiplier, widget: number, value_type: float, step: 0.01 }
+              - { label: Aktywne, name: active, widget: boolean }
