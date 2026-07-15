@@ -1,0 +1,32 @@
+# Zależności Node.js
+node_modules/
+**/node_modules/
+
+# Wyniki kompilacji
+/dist/
+**/dist/
+
+# Cache Vite i narzędzi
+.vite/
+**/.vite/
+.cache/
+.netlify/
+
+# Dane poufne
+.env
+.env.*
+!.env.example
+
+# Logi
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Edytory i system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
