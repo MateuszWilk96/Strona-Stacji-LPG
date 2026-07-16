@@ -2,139 +2,200 @@ backend:
   name: git-gateway
   branch: main
 
-local_backend: true
-publish_mode: editorial_workflow
+# Tryb prosty jest wygodniejszy przy jednej osobie zarządzającej stroną.
+publish_mode: simple
+
 media_folder: public/uploads
 public_folder: /uploads
 
 collections:
   - name: ustawienia
     label: Ustawienia strony
+    delete: false
+    editor:
+      preview: false
     files:
       - name: site
         label: Dane firmy, ceny i integracje
         file: public/data/site-data.json
         format: json
+        delete: false
         fields:
           - label: Marki
             name: brands
             widget: object
+            required: false
+            collapsed: true
             fields:
-              - { label: Stacja, name: station, widget: string }
-              - { label: Ubezpieczenia, name: insurance, widget: string }
+              - { label: Stacja, name: station, widget: string, required: false }
+              - { label: Ubezpieczenia, name: insurance, widget: string, required: false }
+
           - label: Adres
             name: address
             widget: object
+            required: false
+            collapsed: true
             fields:
-              - { label: Ulica, name: street, widget: string }
-              - { label: Kod pocztowy, name: postalCode, widget: string }
-              - { label: Miasto, name: city, widget: string }
-              - { label: Pełny adres, name: full, widget: string }
+              - { label: Ulica, name: street, widget: string, required: false }
+              - { label: Kod pocztowy, name: postalCode, widget: string, required: false }
+              - { label: Miasto, name: city, widget: string, required: false }
+              - { label: Pełny adres, name: full, widget: string, required: false }
+
           - label: Telefony
             name: phones
             widget: object
+            required: false
+            collapsed: true
             fields:
-              - { label: Centrala, name: central, widget: string }
-              - { label: Stacja, name: station, widget: string }
-              - { label: Agent 1, name: agent1, widget: string }
-              - { label: Agent 2, name: agent2, widget: string }
+              - { label: Centrala, name: central, widget: string, required: false }
+              - { label: Stacja, name: station, widget: string, required: false }
+              - { label: Agent 1, name: agent1, widget: string, required: false }
+              - { label: Agent 2, name: agent2, widget: string, required: false }
+
           - label: E-maile
             name: emails
             widget: object
+            required: false
+            collapsed: true
             fields:
-              - { label: Stacja, name: station, widget: string }
-              - { label: Ubezpieczenia, name: insurance, widget: string }
-              - { label: Pakersi, name: pakersi, widget: string }
+              - { label: Stacja, name: station, widget: string, required: false }
+              - { label: Ubezpieczenia, name: insurance, widget: string, required: false }
+              - { label: Pakersi, name: pakersi, widget: string, required: false }
+
           - label: Social media
             name: social
             widget: object
+            required: false
+            collapsed: true
             fields:
-              - { label: Facebook, name: facebook, widget: string }
+              - { label: Facebook, name: facebook, widget: string, required: false }
+
           - label: LPG
             name: lpg
             widget: object
+            required: false
+            collapsed: false
             fields:
-              - { label: Cena LPG, name: price, widget: number, value_type: float, step: 0.01, min: 0 }
-              - { label: Data aktualizacji ceny, name: priceUpdatedAt, widget: datetime, date_format: YYYY-MM-DD, time_format: false, format: YYYY-MM-DD }
+              - label: Cena LPG
+                name: price
+                widget: number
+                value_type: float
+                step: 0.01
+                min: 0
+                required: true
+                hint: Wpisz cenę z kropką albo przecinkiem, np. 3.16.
+              - label: Data aktualizacji ceny
+                name: priceUpdatedAt
+                widget: datetime
+                date_format: YYYY-MM-DD
+                time_format: false
+                format: YYYY-MM-DD
+                required: false
+
           - label: Przyczepka
             name: trailer
             widget: object
+            required: false
+            collapsed: true
             fields:
-              - { label: Do 3 godzin, name: upTo3h, widget: number, min: 0 }
-              - { label: Doba, name: day, widget: number, min: 0 }
+              - { label: Do 3 godzin, name: upTo3h, widget: number, min: 0, required: false }
+              - { label: Doba, name: day, widget: number, min: 0, required: false }
+
           - label: Dostawa
             name: delivery
             widget: object
+            required: false
+            collapsed: true
             fields:
-              - { label: Aktywna, name: enabled, widget: boolean }
-              - { label: Cena, name: price, widget: number, min: 0 }
-              - { label: Telefon, name: phone, widget: string }
+              - { label: Aktywna, name: enabled, widget: boolean, required: false, default: false }
+              - { label: Cena, name: price, widget: number, min: 0, required: false }
+              - { label: Telefon, name: phone, widget: string, required: false }
+
           - label: Przycisk Pakersi
             name: pakersi
             widget: object
+            required: false
+            collapsed: true
             fields:
-              - { label: Pokaż sekcję, name: enabled, widget: boolean }
-              - { label: Tekst przycisku, name: label, widget: string }
-              - { label: Informacja, name: message, widget: text }
+              - { label: Pokaż sekcję, name: enabled, widget: boolean, required: false, default: false }
+              - { label: Tekst przycisku, name: label, widget: string, required: false }
+              - { label: Informacja, name: message, widget: text, required: false }
               - { label: Adres strony Pakersi, name: websiteUrl, widget: string, required: false, hint: Pozostaw puste, dopóki nie otrzymasz adresu. }
+
           - label: Integracje
             name: integrations
             widget: object
+            required: false
+            collapsed: true
             fields:
               - { label: Google Apps Script URL, name: googleAppsScriptUrl, widget: string, required: false }
+
           - label: Prywatność
             name: privacy
             widget: object
+            required: false
+            collapsed: true
             fields:
-              - { label: Administrator danych, name: administrator, widget: string }
-              - { label: E-mail kontaktowy, name: contactEmail, widget: string }
+              - { label: Administrator danych, name: administrator, widget: string, required: false }
+              - { label: E-mail kontaktowy, name: contactEmail, widget: string, required: false }
 
       - name: products
         label: Produkty, ceny i zdjęcia
         file: public/data/products.json
         format: json
+        delete: false
         fields:
           - label: Produkty
             name: products
             widget: list
+            required: false
             summary: '{{fields.name}} — {{fields.price}} zł'
             fields:
-              - { label: ID, name: id, widget: number, value_type: int }
-              - { label: Nazwa, name: name, widget: string }
-              - { label: Cena, name: price, widget: number, value_type: float, step: 0.01, min: 0 }
-              - { label: Opis, name: desc, widget: text }
-              - { label: Obraz, name: image, widget: image, choose_url: true }
-              - { label: Aktywny, name: active, widget: boolean }
+              - { label: ID, name: id, widget: number, value_type: int, required: true }
+              - { label: Nazwa, name: name, widget: string, required: true }
+              - { label: Cena, name: price, widget: number, value_type: float, step: 0.01, min: 0, required: true }
+              - { label: Opis, name: desc, widget: text, required: false }
+              - { label: Obraz, name: image, widget: image, choose_url: true, required: false }
+              - { label: Aktywny, name: active, widget: boolean, required: false, default: true }
 
       - name: insurance_rates
         label: Model kalkulatora orientacyjnego
         file: public/data/insurance-rates.json
         format: json
+        delete: false
         fields:
-          - { label: Informacja prawna, name: notice, widget: text }
-          - { label: Składka bazowa, name: basePremium, widget: number, value_type: float, min: 0 }
+          - { label: Informacja prawna, name: notice, widget: text, required: false }
+          - { label: Składka bazowa, name: basePremium, widget: number, value_type: float, min: 0, required: false }
+
           - label: Współczynniki
             name: factors
             widget: object
+            required: false
+            collapsed: true
             fields:
-              - { label: Młody kierowca, name: youngDriver, widget: number, value_type: float, step: 0.01 }
-              - { label: Region, name: regional, widget: number, value_type: float, step: 0.01 }
-              - { label: Każda szkoda, name: claim, widget: number, value_type: float, step: 0.01 }
-              - { label: Duży silnik, name: largeEngine, widget: number, value_type: float, step: 0.01 }
-              - { label: Starszy pojazd, name: olderVehicle, widget: number, value_type: float, step: 0.01 }
+              - { label: Młody kierowca, name: youngDriver, widget: number, value_type: float, step: 0.01, required: false }
+              - { label: Region, name: regional, widget: number, value_type: float, step: 0.01, required: false }
+              - { label: Każda szkoda, name: claim, widget: number, value_type: float, step: 0.01, required: false }
+              - { label: Duży silnik, name: largeEngine, widget: number, value_type: float, step: 0.01, required: false }
+              - { label: Starszy pojazd, name: olderVehicle, widget: number, value_type: float, step: 0.01, required: false }
+
           - label: Progi
             name: thresholds
             widget: object
+            required: false
+            collapsed: true
             fields:
-              - { label: Wiek młodego kierowcy poniżej, name: youngDriverAge, widget: number }
-              - { label: Duży silnik od cm3, name: largeEngineCc, widget: number }
-              - { label: Starszy pojazd przed rokiem, name: olderVehicleBeforeYear, widget: number }
-              - { label: Prefiks kodu pocztowego regionu, name: regionalPostalPrefix, widget: string }
+              - { label: Wiek młodego kierowcy poniżej, name: youngDriverAge, widget: number, required: false }
+              - { label: Duży silnik od cm3, name: largeEngineCc, widget: number, required: false }
+              - { label: Starszy pojazd przed rokiem, name: olderVehicleBeforeYear, widget: number, required: false }
+              - { label: Prefiks kodu pocztowego regionu, name: regionalPostalPrefix, widget: string, required: false }
+
           - label: Towarzystwa i mnożniki orientacyjne
             name: companies
             widget: list
+            required: false
             summary: '{{fields.name}} — {{fields.multiplier}}'
             fields:
-              - { label: Nazwa, name: name, widget: string }
-              - { label: Mnożnik orientacyjny, name: multiplier, widget: number, value_type: float, step: 0.01 }
-              - { label: Aktywne, name: active, widget: boolean }
+              - { label: Nazwa, name: name, widget: string, required: true }
+              - { label: Mnożnik orientacyjny, name: multiplier, widget: number, value_type: float, step: 0.01, required: true }
+              - { label: Aktywne, name: active, widget: boolean, required: false, default: true }
