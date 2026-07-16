@@ -3,26 +3,14 @@ import defaultSiteConfig from "../config/siteConfig";
 
 const SettingsContext = createContext(null);
 
-/**
- * Łączy dane z panelu CMS z konfiguracją domyślną.
- *
- * Dzięki temu brak opcjonalnej sekcji w site-data.json nie powoduje błędu
- * typu: "Cannot read properties of undefined".
- */
 function mergeSettings(defaults, incoming) {
   if (Array.isArray(defaults)) {
     return Array.isArray(incoming) ? incoming : defaults;
   }
 
-  if (
-    defaults !== null &&
-    typeof defaults === "object" &&
-    !Array.isArray(defaults)
-  ) {
+  if (defaults && typeof defaults === "object") {
     const source =
-      incoming !== null &&
-      typeof incoming === "object" &&
-      !Array.isArray(incoming)
+      incoming && typeof incoming === "object" && !Array.isArray(incoming)
         ? incoming
         : {};
 
@@ -53,23 +41,16 @@ export function SettingsProvider({ children }) {
         setLoading(true);
         setSettingsError("");
 
-        const response = await fetch(
-          `/data/site-data.json?v=${Date.now()}`,
-          {
-            cache: "no-store",
-            signal: controller.signal,
-          }
-        );
+        const response = await fetch(`/data/site-data.json?v=${Date.now()}`, {
+          cache: "no-store",
+          signal: controller.signal,
+        });
 
         if (!response.ok) {
-          throw new Error(
-            `Nie można wczytać konfiguracji strony (${response.status}).`
-          );
+          throw new Error(`Nie można wczytać konfiguracji (${response.status}).`);
         }
 
         const cmsSettings = await response.json();
-
-        // Zachowuje wartości domyślne dla brakujących pól opcjonalnych.
         setSettings(mergeSettings(defaultSiteConfig, cmsSettings));
       } catch (error) {
         if (error.name !== "AbortError") {
@@ -85,18 +66,11 @@ export function SettingsProvider({ children }) {
     }
 
     loadSettings();
-
     return () => controller.abort();
   }, []);
 
   return (
-    <SettingsContext.Provider
-      value={{
-        settings,
-        loading,
-        settingsError,
-      }}
-    >
+    <SettingsContext.Provider value={{ settings, loading, settingsError }}>
       {children}
     </SettingsContext.Provider>
   );
@@ -106,9 +80,7 @@ export function useSettings() {
   const context = useContext(SettingsContext);
 
   if (!context) {
-    throw new Error(
-      "useSettings musi być użyty wewnątrz komponentu SettingsProvider."
-    );
+    throw new Error("useSettings musi być użyty wewnątrz SettingsProvider");
   }
 
   return context;
