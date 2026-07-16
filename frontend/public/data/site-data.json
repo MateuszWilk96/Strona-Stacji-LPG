@@ -1,13 +1,7 @@
 {
-  "brands": {
-    "station": "Twoja Stacja LPG",
-    "insurance": "Twoja Strefa Ubezpieczeń"
-  },
-  "address": {
-    "street": "Podhalańska 25",
-    "postalCode": "44-335",
-    "city": "Jastrzębie-Zdrój",
-    "full": "Podhalańska 25, 44-335 Jastrzębie-Zdrój"
+  "lpg": {
+    "price": 3.14,
+    "priceUpdatedAt": "2026-07-15"
   },
   "phones": {
     "central": "663880881",
@@ -15,17 +9,16 @@
     "agent1": "663887887",
     "agent2": "663886886"
   },
-  "emails": {
-    "station": "twoja.stacja.lpg@gmail.com",
-    "insurance": "twoja.strefa.ubezpieczen.pl@gmail.com",
-    "pakersi": "jastrzebiezdrojtwojastrefa@pakersi.pl"
+  "privacy": {
+    "administrator": "Twoja Stacja LPG / Twoja Strefa Ubezpieczeń",
+    "contactEmail": "twoja.strefa.ubezpieczen.pl@gmail.com"
+  },
+  "brands": {
+    "station": "Twoja Stacja LPG",
+    "insurance": "Twoja Strefa Ubezpieczeń"
   },
   "social": {
     "facebook": "https://www.facebook.com/profile.php?id=61587924527989"
-  },
-  "lpg": {
-    "price": 3.15,
-    "priceUpdatedAt": "2026-07-15"
   },
   "trailer": {
     "upTo3h": 20,
@@ -36,6 +29,17 @@
     "price": 20,
     "phone": "661880881"
   },
+  "address": {
+    "street": "Podhalańska 25",
+    "postalCode": "44-335",
+    "city": "Jastrzębie-Zdrój",
+    "full": "Podhalańska 25, 44-335 Jastrzębie-Zdrój"
+  },
+  "emails": {
+    "station": "twoja.stacja.lpg@gmail.com",
+    "insurance": "twoja.strefa.ubezpieczen.pl@gmail.com",
+    "pakersi": "jastrzebiezdrojtwojastrefa@pakersi.pl"
+  },
   "pakersi": {
     "enabled": true,
     "label": "Pakersi — strona punktu",
@@ -43,9 +47,5 @@
   },
   "integrations": {
     "googleAppsScriptUrl": ""
-  },
-  "privacy": {
-    "administrator": "Twoja Stacja LPG / Twoja Strefa Ubezpieczeń",
-    "contactEmail": "twoja.strefa.ubezpieczen.pl@gmail.com"
   }
 }
