@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
@@ -6,6 +6,7 @@
     <meta name="description" content="Twoja Stacja LPG i Twoja Strefa Ubezpieczeń w Jastrzębiu-Zdroju." />
     <meta property="og:title" content="Twoja Stacja LPG | Twoja Strefa Ubezpieczeń" />
     <meta property="og:type" content="website" />
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <title>Twoja Stacja LPG</title>
   </head>
   <body>
@@ -17,5 +18,16 @@
       <input name="name"><input name="phone"><input name="email"><input name="brand"><input name="model"><input name="year"><input name="engine"><input name="postalCode"><input name="driverAge"><input name="claims"><input name="registration"><input name="pesel"><input name="notes"><input name="estimates"><input name="consent"><input name="date">
     </form>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", function (user) {
+      if (!user) {
+        window.netlifyIdentity.on("login", function () {
+          window.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
   </body>
 </html>
