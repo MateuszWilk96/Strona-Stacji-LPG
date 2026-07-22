@@ -43,6 +43,7 @@
   "pakersi": {
     "enabled": true,
     "label": "Pakersi — strona punktu",
+      "message": "Już wkrótce!",
     "websiteUrl": ""
   },
   "integrations": {
