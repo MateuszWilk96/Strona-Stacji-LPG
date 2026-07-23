@@ -1,6 +1,6 @@
 {
   "lpg": {
-    "price": 3.15,
+    "price": 3.07,
     "priceUpdatedAt": "2026-07-15"
   },
   "phones": {
@@ -43,7 +43,7 @@
   "pakersi": {
     "enabled": true,
     "label": "Pakersi — strona punktu",
-      "message": "Już wkrótce!",
+    "message": "Już wkrótce!",
     "websiteUrl": ""
   },
   "integrations": {
