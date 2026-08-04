@@ -3,7 +3,7 @@
     {
       "id": 2,
       "name": "Gaz w butli 11KG Propan-Butan",
-      "price": 85,
+      "price": 79.99,
       "desc": "Cena za wymianę lub napełnienie. Wymagana własna butla.",
       "image": "/butla-11kg.png",
       "active": true
@@ -11,7 +11,7 @@
     {
       "id": 3,
       "name": "Gaz w butli 10KG Propan-Butan",
-      "price": 95,
+      "price": 90,
       "desc": "Cena za wymianę lub napełnienie. Wymagana własna butla.",
       "image": "/butla-11kg.png",
       "active": true
