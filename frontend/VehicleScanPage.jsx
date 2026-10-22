@@ -1,4 +1,4 @@
-import InsuranceLeadForm from '../components/insurance/InsuranceLeadForm';
+import InsuranceLeadForm from "./InsuranceLeadForm";
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
