@@ -11,20 +11,42 @@ function doPost(e) {
   try {
     const data = JSON.parse((e.postData && e.postData.contents) || '{}');
     const isInsurance = data.type === 'insurance-lead';
+    if (isInsurance) {
+      const expected = PropertiesService.getScriptProperties().getProperty('INSURANCE_WEBHOOK_SECRET');
+      if (!expected || data.token !== expected) return jsonResponse({ok:false,error:'Unauthorized'});
+      delete data.token;
+      // Deduplikacja po requestId zabezpiecza przed powtórzeniem tego samego zgłoszenia.
+      if (data.requestId && alreadyReceived(data.requestId)) return jsonResponse({ok:true,id:'DUPLICATE'});
+    }
     const sheetName = isInsurance ? CONFIG.INSURANCE_SHEET : CONFIG.LPG_SHEET;
     const id = createId(isInsurance ? 'UBEZ' : 'LPG');
     const receivedAt = Utilities.formatDate(new Date(), CONFIG.TIMEZONE, 'yyyy-MM-dd HH:mm:ss');
     const record = { ID: id, Status: 'Nowe', Otrzymano: receivedAt, ...data };
 
     appendRecord(sheetName, record);
+    if (isInsurance) {
+      // Jeśli e-mail nie wyjdzie, zgłoszenie pozostaje w arkuszu do ręcznej obsługi.
+      try { sendFormattedEmail(true, record); } catch (mailError) {
+        console.error("EMAIL FAILED for " + id + ": " + mailError);
+        return jsonResponse({ok:false,error:"Zapisano w arkuszu, ale e-mail nie został wysłany",id});
+      }
+    } else { sendFormattedEmail(false, record); }
     updateDashboard();
-    sendFormattedEmail(isInsurance, record);
 
     return jsonResponse({ ok: true, id });
   } catch (error) {
     console.error(error);
     return jsonResponse({ ok: false, error: String(error) });
   }
+}
+
+function alreadyReceived(requestId) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(CONFIG.INSURANCE_SHEET);
+  if (!sheet || sheet.getLastRow() < 2) return false;
+  const headers = sheet.getRange(1,1,1,sheet.getLastColumn()).getValues()[0];
+  const col = headers.indexOf('requestId') + 1;
+  if (!col) return false;
+  return sheet.getRange(2,col,sheet.getLastRow()-1,1).createTextFinder(requestId).matchEntireCell(true).findNext() !== null;
 }
 
 function createId(prefix) {
@@ -60,7 +82,8 @@ function appendRecord(sheetName, record) {
 function normalizeValue(value) {
   if (value === undefined || value === null) return '';
   if (typeof value === 'object') return JSON.stringify(value);
-  return String(value);
+  const text = String(value);
+  return /^[=+@\-\t\r]/.test(text) ? '\'' + text : text;
 }
 
 function sendFormattedEmail(isInsurance, record) {
