@@ -1,7 +1,10 @@
+
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./layout/Layout";
 import LpgPage from "./pages/LpgPage";
 import InsurancePage from "./pages/InsurancePage";
+import VehicleScanPage from "../VehicleScanPage";
+import VehiclePrivacyPage from "../VehiclePrivacyPage";
 import RouteFavicon from "./components/RouteFavicon";
 
 export default function App() {
@@ -12,6 +15,8 @@ export default function App() {
         <Route element={<Layout />}>
           <Route index element={<LpgPage />} />
           <Route path="ubezpieczenia" element={<InsurancePage />} />
+          <Route path="odczyt-pojazdu" element={<VehicleScanPage />} />
+          <Route path="polityka-prywatnosci" element={<VehiclePrivacyPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>
