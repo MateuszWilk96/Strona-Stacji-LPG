@@ -128,8 +128,16 @@ export default async function handler(request) {
     const result = await response.json();
 
     if (result.ok !== true) {
-      throw new Error("Nie udało się potwierdzić zapisu.");
-    }
+  console.error("Apps Script response:", {
+    ok: result.ok,
+    errorType:
+      result.error === "Unauthorized"
+        ? "UNAUTHORIZED"
+        : "OTHER_ERROR",
+  });
+
+  throw new Error("Nie udało się potwierdzić zapisu.");
+}
 
     return Response.json(
       { ok: true, id: result.id },
