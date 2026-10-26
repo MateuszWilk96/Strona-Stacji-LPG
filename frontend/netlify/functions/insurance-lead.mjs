@@ -1,5 +1,11 @@
 // Server-side relay: Google Sheets + e-mail are handled together by Apps Script.
+
 const allowedFields = ['name','phone','email','registration','notes','marka','model','rokProdukcji','pojemnoscCm3','paliwo','source'];
+
+const validRequestId = value =>
+  typeof value === 'string' &&
+  /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value);
+
 const clean = (value, limit = 300) => String(value ?? '').trim().slice(0, limit);
 export default async function handler(request) {
   if (request.method !== 'POST') return Response.json({error:'Metoda niedozwolona.'},{status:405});
@@ -19,7 +25,11 @@ export default async function handler(request) {
     if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
       return Response.json({error:'Nieprawidłowy adres e-mail.'},{status:400});
     const payload = {type:'insurance-lead', ...data, privacyAcknowledged:true, acceptContact:true,
-      date:new Date().toISOString(), requestId:crypto.randomUUID(), token:secret};
+      
+date:new Date().toISOString(),
+requestId:validRequestId(input.requestId) ? input.requestId : crypto.randomUUID(),
+token:secret
+
     const response = await fetch(url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload),redirect:'follow',signal:AbortSignal.timeout(18000)});
     if (!response.ok) throw new Error('Błąd dostawcy');
     const result = await response.json();
