@@ -98,7 +98,19 @@ export default async function handler(request) {
         { status: 400 }
       );
     }
+    // Blokada możliwego numeru PESEL przed wysłaniem do Google.
+    // Usuwamy separatory, aby wykrywać również cyfry ze spacjami.
+    const notesDigits = data.notes.replace(/\D/g, "");
 
+    if (/\d{11}/.test(notesDigits)) {
+      return Response.json(
+        {
+          error:
+            "W dodatkowych informacjach wykryto możliwy numer PESEL. Usuń go przed wysłaniem zgłoszenia.",
+        },
+        { status: 400 }
+      );
+    }
     const payload = {
       type: "insurance-lead",
       ...data,
