@@ -102,7 +102,7 @@ export default async function handler(request) {
     // Usuwamy separatory, aby wykrywać również cyfry ze spacjami.
     const notesDigits = data.notes.replace(/\D/g, "");
 
-    if (/\d{11}/.test(notesDigits)) {
+    if (/\d{11}/.test(notesDigits) || /\bpesel\b/i.test(data.notes)) {
       return Response.json(
         {
           error:
