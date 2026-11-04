@@ -112,17 +112,22 @@ export default async function handler(request) {
     }
     // Blokada możliwego numeru PESEL przed wysłaniem do Google.
     // Usuwamy separatory, aby wykrywać również cyfry ze spacjami.
-    const notesDigits = data.notes.replace(/\D/g, "");
+    const containsPossiblePesel = fieldsToCheck.some((field) => {
+  const value = data[field] || "";
+  const digits = value.replace(/\D/g, "");
 
-    if (/\d{11}/.test(notesDigits) || /\bpesel\b/i.test(data.notes)) {
-      return Response.json(
-        {
-          error:
-            "W dodatkowych informacjach wykryto możliwy numer PESEL. Usuń go przed wysłaniem zgłoszenia.",
-        },
-        { status: 400 }
-      );
-    }
+  return /\d{11}/.test(digits) || /\bpesel\b/i.test(value);
+});
+
+if (containsPossiblePesel) {
+  return Response.json(
+    {
+      error:
+        "W zgłoszeniu wykryto możliwy numer PESEL. Usuń go przed wysłaniem zgłoszenia.",
+    },
+    { status: 400 }
+  );
+}
     const payload = {
       type: "insurance-lead",
       ...data,
