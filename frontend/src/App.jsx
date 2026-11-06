@@ -6,12 +6,14 @@ import InsurancePage from "./pages/InsurancePage";
 import VehicleScanPage from "../VehicleScanPage";
 import VehiclePrivacyPage from "../VehiclePrivacyPage";
 import RouteFavicon from "./components/RouteFavicon";
+import PageViewTracker from "./components/PageViewTracker";
 
 export default function App() {
   return (
     <BrowserRouter>
-      <RouteFavicon />
-      <Routes>
+  <RouteFavicon />
+  <PageViewTracker />
+  <Routes>
         <Route element={<Layout />}>
           <Route index element={<LpgPage />} />
           <Route path="ubezpieczenia" element={<InsurancePage />} />
