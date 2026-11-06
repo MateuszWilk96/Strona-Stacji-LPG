@@ -20,6 +20,13 @@
   "social": {
     "facebook": "https://www.facebook.com/profile.php?id=61587924527989"
   },
+  "insuranceVideos": [
+    {
+      "enabled": true,
+      "url": "https://res.cloudinary.com/j3izkqgr/video/upload/v1793968902/twojastrefa/ubezpieczenia/kestgliv9yaubkym6bes.mp4",
+      "title": "Test"
+    }
+  ],
   "trailer": {
     "upTo3h": 20,
     "day": 50
@@ -48,7 +55,5 @@
   },
   "integrations": {
     "googleAppsScriptUrl": ""
-  },
-  "insuranceVideos": []
+  }
 }
-  
