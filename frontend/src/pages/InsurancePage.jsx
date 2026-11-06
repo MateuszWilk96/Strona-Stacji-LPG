@@ -7,6 +7,7 @@ import { useSettings } from "../context/SettingsContext";
 import InsuranceCalculator from "../components/insurance/InsuranceCalculator";
 import InsuranceLeadForm from "../components/insurance/InsuranceLeadForm";
 import OcPromotion from "../components/OcPromotion";
+import InsuranceVideos from "../components/insurance/InsuranceVideos";
 
 export default function InsurancePage() {
   const { settings } = useSettings();
@@ -97,6 +98,9 @@ export default function InsurancePage() {
           ))}
         </div>
       </section>
+
+      {/* Filmy o ubezpieczeniach */}
+      <InsuranceVideos />
 
       {/* Promocja LPG + ubezpieczenia */}
       <OcPromotion />
