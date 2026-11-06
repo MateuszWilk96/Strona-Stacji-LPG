@@ -13,7 +13,16 @@ export default async (request) => {
     if (!res.ok) return Response.json({ error: "Sesja wygasła." }, { status: 401 });
     identity = await res.json();
   } catch { return Response.json({ error: "Nie udało się zweryfikować konta." }, { status: 503 }); }
-  if (!identity?.id) return Response.json({ error: "Brak uprawnień." }, { status: 403 });
+  
+const roles = identity.app_metadata?.roles;
+
+if (!Array.isArray(roles) || !roles.includes("admin")) {
+  return Response.json(
+    { error: "Tylko administrator może przesyłać filmy." },
+    { status: 403 }
+  );
+}
+
   const cloud = process.env.CLOUDINARY_CLOUD_NAME;
   const key = process.env.CLOUDINARY_API_KEY;
   const secret = process.env.CLOUDINARY_API_SECRET;
