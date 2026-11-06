@@ -10,6 +10,53 @@ const CONFIG = {
 function doPost(e) {
   try {
     const data = JSON.parse((e.postData && e.postData.contents) || '{}');
+    if (data.type === 'page-view') {
+      const expected = PropertiesService
+        .getScriptProperties()
+        .getProperty('INSURANCE_WEBHOOK_SECRET');
+
+      if (!expected || data.token !== expected) {
+        return jsonResponse({ ok: false, error: 'Unauthorized' });
+      }
+
+      const pages = {
+        '/': 'LPG',
+        '/ubezpieczenia': 'Ubezpieczenia',
+        '/odczyt-pojazdu': 'Odczyt pojazdu'
+      };
+
+      if (
+        typeof data.path !== 'string' ||
+        !Object.prototype.hasOwnProperty.call(pages, data.path)
+      ) {
+        return jsonResponse({ ok: false, error: 'Invalid path' });
+      }
+
+      const sheet = SpreadsheetApp
+        .getActiveSpreadsheet()
+        .getSheetByName('Odwiedziny') ||
+        SpreadsheetApp.getActiveSpreadsheet().insertSheet('Odwiedziny');
+
+      if (sheet.getLastRow() === 0) {
+        sheet.appendRow(['Data i godzina', 'Strona', 'Adres']);
+        sheet.setFrozenRows(1);
+        sheet.getRange('A1:C1')
+          .setFontWeight('bold')
+          .setBackground('#dbeafe');
+      }
+
+      sheet.appendRow([
+        Utilities.formatDate(
+          new Date(),
+          CONFIG.TIMEZONE,
+          'yyyy-MM-dd HH:mm:ss'
+        ),
+        pages[data.path],
+        data.path
+      ]);
+
+      return jsonResponse({ ok: true });
+    }
     const isInsurance = data.type === 'insurance-lead';
     if (isInsurance) {
       const expected = PropertiesService.getScriptProperties().getProperty('INSURANCE_WEBHOOK_SECRET');
