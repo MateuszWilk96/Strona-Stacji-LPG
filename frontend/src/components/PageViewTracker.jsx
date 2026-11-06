@@ -12,10 +12,8 @@ export default function PageViewTracker() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const path =
-      pathname.length > 1
-        ? pathname.replace(/\/+$/, "")
-        : pathname;
+    const normalizedPath = pathname.toLowerCase().replace(/\/+$/, "");
+const path = normalizedPath || "/";
 
     if (!TRACKED_PATHS.has(path)) return;
 
