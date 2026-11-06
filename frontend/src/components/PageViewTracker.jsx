@@ -19,10 +19,24 @@ export default function PageViewTracker() {
 
     if (!TRACKED_PATHS.has(path)) return;
 
-    // Na razie nie wysyłamy zdarzeń.
-    // Włączymy je po przygotowaniu funkcji Netlify
-    // i bezpiecznej obsługi w Google Apps Script.
+    fetch("/.netlify/functions/page-view", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ path }),
+      keepalive: true,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          console.error("Błąd licznika:", response.status);
+        }
+      })
+      .catch((error) => {
+        console.error("Nie udało się wysłać odwiedzin:", error);
+      });
   }, [pathname]);
 
   return null;
 }
+
