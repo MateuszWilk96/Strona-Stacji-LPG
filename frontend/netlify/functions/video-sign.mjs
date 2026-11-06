@@ -14,14 +14,24 @@ export default async (request) => {
     identity = await res.json();
   } catch { return Response.json({ error: "Nie udało się zweryfikować konta." }, { status: 503 }); }
   
+
 const roles = identity.app_metadata?.roles;
 
-if (!Array.isArray(roles) || !roles.includes("admin")) {
+const isAdmin =
+  Array.isArray(roles) &&
+  roles.some(
+    (role) =>
+      typeof role === "string" &&
+      role.toLowerCase() === "admin"
+  );
+
+if (!isAdmin) {
   return Response.json(
     { error: "Tylko administrator może przesyłać filmy." },
     { status: 403 }
   );
 }
+
 
   const cloud = process.env.CLOUDINARY_CLOUD_NAME;
   const key = process.env.CLOUDINARY_API_KEY;
