@@ -22,7 +22,12 @@ const path = normalizedPath || "/";
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ path }),
+      body: JSON.stringify({
+  path,
+  environment: window.location.hostname === "teststrefa.netlify.app"
+    ? "Test"
+    : "Main",
+}),
       keepalive: true,
     })
       .then((response) => {
