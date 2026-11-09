@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: Test
+  branch: Main
 
 publish_mode: simple
 
