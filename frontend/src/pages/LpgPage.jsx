@@ -3,6 +3,7 @@ import { useLanguage } from "../context/LanguageContext";
 import ProductGrid from "../components/lpg/ProductGrid";
 import Cart from "../components/lpg/Cart";
 import OrderForm from "../components/lpg/OrderForm";
+import OcPromotion from "../components/OcPromotion";
 
 export default function LpgPage() {
   const { settings, loading } = useSettings();
@@ -66,6 +67,8 @@ export default function LpgPage() {
           />
         </div>
       </section>
+      
+      <OcPromotion />
 
       <section
         id="przyczepka"

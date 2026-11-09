@@ -108,7 +108,16 @@ collections:
             fields:
               - { label: Administrator danych, name: administrator, widget: string, required: false }
               - { label: E-mail kontaktowy, name: contactEmail, widget: string, required: false }
-
+          - label: Filmy na stronie Ubezpieczenia
+            name: insuranceVideos
+            widget: list
+            required: false
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Tytuł filmu, name: title, widget: string }
+              - { label: Opis, name: description, widget: text, required: false }
+              - { label: Widoczny na stronie, name: enabled, widget: boolean, default: true }
+              - { label: Adres filmu z Cloudinary, name: url, widget: string, required: false }
       - name: products
         label: Produkty, ceny i zdjęcia
         file: frontend/public/data/products.json

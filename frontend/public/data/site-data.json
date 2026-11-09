@@ -20,6 +20,19 @@
   "social": {
     "facebook": "https://www.facebook.com/profile.php?id=61587924527989"
   },
+  "insuranceVideos": [
+    {
+      "enabled": true,
+      "url": "https://res.cloudinary.com/j3izkqgr/video/upload/v1794218731/twojastrefa/ubezpieczenia/rgwx8nvk3zymjgsn2syc.mp4",
+      "title": "Poznaj nasze ubezpieczenia",
+      "description": "Krótki film prezentujący naszą ofertę ubezpieczeniową"
+    },
+    {
+      "enabled": true,
+      "url": "https://res.cloudinary.com/j3izkqgr/video/upload/v1794220914/twojastrefa/ubezpieczenia/wd4ald9npwagahn69so9.mp4",
+      "title": "Test — film pionowy"
+    }
+  ],
   "trailer": {
     "upTo3h": 20,
     "day": 50
