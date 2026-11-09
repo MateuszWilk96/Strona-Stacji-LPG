@@ -15,14 +15,40 @@ export default async function handler(request) {
 
   const url = process.env.INSURANCE_APPS_SCRIPT_URL;
   const secret = process.env.INSURANCE_WEBHOOK_SECRET;
-  const siteUrl = process.env.URL || "";
-const environment = new URL(siteUrl).hostname === "teststrefa.netlify.app"
-  ? "Test"
-  : "Main";
 
   if (!url || !secret) {
     return Response.json(
       { error: "Statystyki nie są skonfigurowane." },
+      { status: 503 }
+    );
+  }
+
+  // Rozpoznawanie środowiska na podstawie adresu Netlify.
+  // Nie ufamy wartości environment z przeglądarki.
+  const siteUrl = process.env.URL || "";
+
+  let hostname = "";
+
+  try {
+    hostname = new URL(siteUrl).hostname.toLowerCase();
+  } catch {
+    console.error("Nieprawidłowy adres witryny Netlify.");
+  }
+
+  let environment;
+
+  if (hostname === "teststrefa.netlify.app") {
+    environment = "Test";
+  } else if (
+    hostname === "twojastrefa.com.pl" ||
+    hostname === "www.twojastrefa.com.pl"
+  ) {
+    environment = "Main";
+  } else {
+    console.error("Nieznane środowisko:", hostname);
+
+    return Response.json(
+      { error: "Nie rozpoznano środowiska witryny." },
       { status: 503 }
     );
   }
@@ -59,8 +85,8 @@ const environment = new URL(siteUrl).hostname === "teststrefa.netlify.app"
         path: data.path,
         environment,
         token: secret,
-}),
-      redir ect: "follow",
+      }),
+      redirect: "follow",
       signal: AbortSignal.timeout(10000),
     });
 
