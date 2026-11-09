@@ -23,36 +23,18 @@ export default async function handler(request) {
     );
   }
 
-  // Rozpoznawanie środowiska na podstawie adresu Netlify.
-  // Nie ufamy wartości environment z przeglądarki.
-  const siteUrl = process.env.URL || "";
+    // Środowisko ustawiane osobno w każdym projekcie Netlify.
+  // Nie przyjmujemy tej wartości z przeglądarki.
+  const environment = process.env.PAGE_VIEW_ENV;
 
-  let hostname = "";
-
-  try {
-    hostname = new URL(siteUrl).hostname.toLowerCase();
-  } catch {
-    console.error("Nieprawidłowy adres witryny Netlify.");
-  }
-
-  let environment;
-
-  if (hostname === "teststrefa.netlify.app") {
-    environment = "Test";
-  } else if (
-    hostname === "twojastrefa.com.pl" ||
-    hostname === "www.twojastrefa.com.pl"
-  ) {
-    environment = "Main";
-  } else {
-    console.error("Nieznane środowisko:", hostname);
+  if (environment !== "Test" && environment !== "Main") {
+    console.error("Nieprawidłowe PAGE_VIEW_ENV.");
 
     return Response.json(
-      { error: "Nie rozpoznano środowiska witryny." },
+      { error: "Nie skonfigurowano środowiska statystyk." },
       { status: 503 }
     );
   }
-
   try {
     const raw = await request.text();
 
