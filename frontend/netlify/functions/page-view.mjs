@@ -15,6 +15,10 @@ export default async function handler(request) {
 
   const url = process.env.INSURANCE_APPS_SCRIPT_URL;
   const secret = process.env.INSURANCE_WEBHOOK_SECRET;
+  const siteUrl = process.env.URL || "";
+const environment = new URL(siteUrl).hostname === "teststrefa.netlify.app"
+  ? "Test"
+  : "Main";
 
   if (!url || !secret) {
     return Response.json(
@@ -53,9 +57,10 @@ export default async function handler(request) {
       body: JSON.stringify({
         type: "page-view",
         path: data.path,
+        environment,
         token: secret,
-      }),
-      redirect: "follow",
+}),
+      redir ect: "follow",
       signal: AbortSignal.timeout(10000),
     });
 
