@@ -49,9 +49,7 @@ export default function InsuranceLeadForm({
 
         if (sending) return;
 
-    const notesDigits = form.notes.replace(/\D/g, "");
-
-    if (/\d{11}/.test(notesDigits) || /\bpesel\b/i.test(form.notes)) {
+    if (/(?:\d[\s-]*){10}\d/.test(form.notes)) {
       setMessage("");
       setError(
         "W dodatkowych informacjach wykryto możliwy numer PESEL. Usuń go przed wysłaniem zgłoszenia."
