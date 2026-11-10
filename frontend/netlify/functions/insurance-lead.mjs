@@ -115,8 +115,7 @@ export default async function handler(request) {
     const containsPossiblePesel = fieldsToCheck.some((field) => {
   const value = data[field] || "";
   const possibleNumber = /(?:\d[\s-]*){10}\d/;
-
-  return possibleNumber.test(value) || /\bpesel\b/i.test(value);
+return possibleNumber.test(value);
 });
 
 if (containsPossiblePesel) {
