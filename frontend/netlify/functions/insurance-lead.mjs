@@ -114,9 +114,9 @@ export default async function handler(request) {
     // Usuwamy separatory, aby wykrywać również cyfry ze spacjami.
     const containsPossiblePesel = fieldsToCheck.some((field) => {
   const value = data[field] || "";
-  const digits = value.replace(/\D/g, "");
+  const possibleNumber = /(?:\d[\s-]*){10}\d/;
 
-  return /\d{11}/.test(digits) || /\bpesel\b/i.test(value);
+  return possibleNumber.test(value) || /\bpesel\b/i.test(value);
 });
 
 if (containsPossiblePesel) {
