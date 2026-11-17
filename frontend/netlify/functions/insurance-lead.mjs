@@ -176,7 +176,7 @@ if (containsPossiblePesel) {
       }
     );
   } catch (error) {
-    console.error("Insurance lead failed:", error);
+    console.error("Insurance lead failed");
 
     return Response.json(
       {
