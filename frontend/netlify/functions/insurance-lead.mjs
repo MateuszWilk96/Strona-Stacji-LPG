@@ -111,7 +111,7 @@ export default async function handler(request) {
       );
     }
     // Blokada możliwego numeru PESEL przed wysłaniem do Google.
-    // Usuwamy separatory, aby wykrywać również cyfry ze spacjami.
+// Wykrywamy 11 cyfr, również rozdzielonych spacjami lub myślnikami.
     const containsPossiblePesel = fieldsToCheck.some((field) => {
   const value = data[field] || "";
   const possibleNumber = /(?:\d[\s-]*){10}\d/;
