@@ -2,6 +2,34 @@ import InsuranceLeadForm from "./InsuranceLeadForm";
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+const MAX_ORIGINAL_IMAGE_SIZE = 15 * 1024 * 1024;
+async function optimizeImage(file) {
+  const bitmap = await createImageBitmap(file);
+
+  try {
+    const maxDimension = 2200;
+    const scale = Math.min(
+      1,
+      maxDimension / Math.max(bitmap.width, bitmap.height)
+    );
+
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(bitmap.width * scale);
+    canvas.height = Math.round(bitmap.height * scale);
+
+    const context = canvas.getContext("2d");
+
+    if (!context) {
+      throw new Error("Nie udało się przygotować zdjęcia.");
+    }
+
+    context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+
+    return canvas.toDataURL("image/jpeg", 0.85);
+  } finally {
+    bitmap.close();
+  }
+}
 const EMPTY = { marka: '', model: '', rokProdukcji: '', pojemnoscCm3: '', paliwo: '' };
 const FIELDS = [['marka','Marka'],['model','Model'],['rokProdukcji','Rok produkcji'],['pojemnoscCm3','Pojemność silnika (cm³)'],['paliwo','Rodzaj paliwa']];
 
@@ -25,12 +53,15 @@ export default function VehicleScanPage() {
     if (!consent) return setError('Zaznacz zgodę na jednorazowy odczyt danych.');
     if (!file) return setError('Wybierz zdjęcie dokumentu.');
     if (!['image/jpeg','image/png','image/webp'].includes(file.type)) return setError('Wybierz plik JPG, PNG lub WebP.');
-    if (file.size > 4 * 1024 * 1024) return setError('Zdjęcie nie może przekraczać 4 MB.');
+    if (file.size > MAX_ORIGINAL_IMAGE_SIZE) return setError('Zdjęcie nie może przekraczać 15 MB.');
     setBusy(true);
     try {
-      const image = await new Promise((resolve,reject) => {
-        const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.onerror = reject; reader.readAsDataURL(file);
-      });
+      const image = await optimizeImage(file);
+      if (image.length > 5_700_000) {
+  throw new Error(
+    'Zdjęcie po optymalizacji nadal jest zbyt duże. Spróbuj wykonać zdjęcie z mniejszej odległości lub w niższej rozdzielczości.'
+  );
+}
       const response = await fetch('/.netlify/functions/vehicle-scan', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({image, consent:true}) });
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || 'Nie udało się odczytać dokumentu.');
@@ -49,7 +80,7 @@ export default function VehicleScanPage() {
         <form onSubmit={analyze} className="space-y-5">
           <div><label htmlFor="vehicle-photo" className="block font-semibold mb-2">Zdjęcie dowodu rejestracyjnego</label>
             <input id="vehicle-photo" type="file" accept="image/jpeg,image/png,image/webp" capture="environment" onChange={e=>{setFile(e.target.files?.[0]||null);setAnalyzed(false);setVehicle(EMPTY);setError('');}} className="block w-full rounded-xl border border-slate-300 p-3" />
-            <p className="text-sm text-slate-600 mt-2">JPG, PNG lub WebP, maksymalnie 4 MB. Jeśli to możliwe, zasłoń imię, nazwisko, adres i numer PESEL przed wykonaniem zdjęcia. Nie przesyłaj drugiej strony dokumentu, jeśli nie jest potrzebna.</p>
+            <p className="text-sm text-slate-600 mt-2">JPG, PNG lub WebP, maksymalnie 15 MB. Większe zdjęcia zostaną automatycznie zoptymalizowane przed wysłaniem. Jeśli to możliwe, zasłoń imię, nazwisko, adres i numer PESEL przed wykonaniem zdjęcia. Nie przesyłaj drugiej strony dokumentu, jeśli nie jest potrzebna.</p>
             {preview && <img src={preview} alt="Podgląd zdjęcia dokumentu" className="mt-3 max-h-64 rounded-xl border object-contain" />}
           </div>
           <label className="flex gap-3 items-start text-sm leading-relaxed"><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)} className="mt-1 h-5 w-5 accent-emerald-700" />
