@@ -18,7 +18,16 @@ export default async (request) => {
           {type:'input_text',text:'Odczytaj wyłącznie dane techniczne pojazdu z polskiego dowodu rejestracyjnego. Nie zwracaj danych osobowych, numerów dokumentu, VIN, tablic rejestracyjnych ani adresów. Nie zgaduj brakujących wartości. Zwróć dokładnie obiekt JSON z polami marka, model, rokProdukcji, pojemnoscCm3, paliwo; wszystkie wartości jako tekst, puste jeśli niepewne. Rok produkcji podaj tylko jeśli wyraźnie widnieje w dokumencie (nie utożsamiaj z datą pierwszej rejestracji).'},
           {type:'input_image',image_url:image,detail:'high'}]}],text:{format:{type:'json_schema',name:'vehicle',strict:true,schema:{type:'object',additionalProperties:false,properties:Object.fromEntries(Object.keys(empty).map(k=>[k,{type:'string'}])),required:Object.keys(empty)}}}})
     });
-    if (!response.ok) return Response.json({error:'Usługa AI chwilowo niedostępna. Spróbuj ponownie później.'},{status:502});
+    if (!response.ok) {
+  console.error("Vehicle scan AI HTTP status:", response.status);
+
+  return Response.json(
+    {
+      error: "Usługa AI chwilowo niedostępna. Spróbuj ponownie później.",
+    },
+    { status: 502 }
+  );
+}
     const result = await response.json();
     const output = result.output?.flatMap(item=>item.content||[]).find(c=>c.type==='output_text')?.text;
     if (!output) return Response.json({error:'Nie udało się odczytać danych ze zdjęcia.'},{status:422});
